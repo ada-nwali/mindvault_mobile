@@ -28,6 +28,7 @@ import { useAppTheme } from "../theme/ThemeProvider";
 import { ResourceCard } from "../components/ResourceCard";
 import { SkeletonCard } from "../components/SkeletonCard";
 import { TransferOwnershipModal } from "../components/TransferOwnershipModal";
+import { logError } from "../utils/errorLogger";
 
 type PublisherResourcesNavigation = NativeStackNavigationProp<
   RootStackParamList,
@@ -313,7 +314,7 @@ export function PublisherResourcesScreen() {
           }
         }
       } catch (err) {
-        console.error("Failed to load stored API key:", err);
+        logError("publisherResources.loadStoredApiKey", err);
       } finally {
         setCheckingStoredKey(false);
       }
