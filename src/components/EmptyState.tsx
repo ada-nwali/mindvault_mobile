@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { spacing } from "../theme";
 import { useAppTheme } from "../theme/ThemeProvider";
@@ -17,20 +17,12 @@ interface EmptyStateProps {
  */
 export function EmptyState({ title, body, actionLabel, onAction }: EmptyStateProps) {
   const { colors, shared } = useAppTheme();
-  const { fontScale } = useWindowDimensions();
 
   return (
     <View style={styles.container}>
       <Text style={styles.icon}>🗂️</Text>
       <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
-      <Text
-        style={[
-          styles.body,
-          { color: colors.textMuted, lineHeight: Math.ceil(20 * fontScale) },
-        ]}
-      >
-        {body}
-      </Text>
+      <Text style={[styles.body, { color: colors.textMuted }]}>{body}</Text>
       {actionLabel && onAction ? (
         <Pressable onPress={onAction} style={[shared.button, styles.action]}>
           <Text style={shared.buttonText}>{actionLabel}</Text>
@@ -61,6 +53,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
     maxWidth: 480,
+    lineHeight: 20,
     flexShrink: 1,
   },
   action: {

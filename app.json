@@ -9,12 +9,12 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "./assets/adaptive-icon.png",
       "imageWidth": 220,
       "resizeMode": "contain",
       "backgroundColor": "#4f46e5",
       "dark": {
-        "image": "./assets/splash-icon.png",
+        "image": "./assets/adaptive-icon.png",
         "imageWidth": 220,
         "backgroundColor": "#1f2937"
       }

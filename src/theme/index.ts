@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { DarkTheme, DefaultTheme, type Theme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useColorScheme, useWindowDimensions } from "react-native";
+import { useColorScheme } from "react-native";
 import { useState, useEffect } from "react";
 import { logError } from "../utils/errorLogger";
 
@@ -149,7 +149,6 @@ export function getNavigationTheme(colors: ThemeColors, colorScheme: ColorScheme
 // Theme hook for components
 export function useTheme() {
   const systemColorScheme = useColorScheme();
-  const { fontScale } = useWindowDimensions();
   const [themeMode, setThemeMode] = useState<ThemeMode>("system");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -184,45 +183,47 @@ export function useTheme() {
   const colorScheme = resolveColorScheme(themeMode, systemColorScheme);
 
   // Create typography styles with current colors
-  const scaledLineHeight = (fontSize: number) => Math.ceil(fontSize * 1.4 * fontScale);
+  // React Native already multiplies lineHeight by the system font scale, so
+  // this stays unscaled; multiplying by fontScale here would scale it twice.
+  const lineHeightFor = (fontSize: number) => Math.ceil(fontSize * 1.4);
 
   const typography = StyleSheet.create({
     heading: {
       fontSize: 20,
-      lineHeight: scaledLineHeight(20),
+      lineHeight: lineHeightFor(20),
       fontWeight: "700",
       color: colors.text,
     },
     title: {
       fontSize: 28,
-      lineHeight: scaledLineHeight(28),
+      lineHeight: lineHeightFor(28),
       fontWeight: "700",
       color: colors.text,
     },
     subtitle: {
       fontSize: 14,
-      lineHeight: scaledLineHeight(14),
+      lineHeight: lineHeightFor(14),
       color: colors.textMuted,
     },
     cardTitle: {
       fontSize: 16,
-      lineHeight: scaledLineHeight(16),
+      lineHeight: lineHeightFor(16),
       fontWeight: "600",
       color: colors.text,
     },
     body: {
       fontSize: 14,
-      lineHeight: scaledLineHeight(14),
+      lineHeight: lineHeightFor(14),
       color: colors.textMuted,
     },
     caption: {
       fontSize: 12,
-      lineHeight: scaledLineHeight(12),
+      lineHeight: lineHeightFor(12),
       color: colors.textSubtle,
     },
     price: {
       fontSize: 15,
-      lineHeight: scaledLineHeight(15),
+      lineHeight: lineHeightFor(15),
       fontWeight: "600",
       color: colors.primary,
     },

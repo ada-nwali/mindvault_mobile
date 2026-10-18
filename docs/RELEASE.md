@@ -54,6 +54,8 @@ reserved for the safe logger.
 ## Dynamic type
 
 Keep React Native text scaling enabled. Avoid fixed-height text containers and
-line counts that clip enlarged text; when a custom line height is needed, scale
-it using `useWindowDimensions().fontScale`. Skeleton placeholders should scale
-with the same font scale so loading layouts remain representative.
+line counts that clip enlarged text. Set `lineHeight` in unscaled points: React
+Native multiplies it by the system font scale itself, so multiplying by
+`fontScale` again would scale it twice. Views do not scale on their own, so
+skeleton placeholders use `useWindowDimensions().fontScale` to stay
+representative of the enlarged text.
